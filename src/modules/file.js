@@ -83,7 +83,7 @@ function showFiles(dirPath) {
 function clearDirectory(dirPath) {
     fs.readdirSync(dirPath).forEach(file => {
         let fullPath = path.join(dirPath, file);
-        if (!['.git', 'node_modules', 'index.js', 'files.js', '.gitignore', 'modules', 'libs'].includes(file)) {
+        if (!['.git', 'node_modules', 'index.js', 'file.js', '.gitignore', 'modules', 'libs'].includes(file)) {
             if (fs.statSync(fullPath).isDirectory()) {
                 eraseFolder(fullPath);
             } else {
