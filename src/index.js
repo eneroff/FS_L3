@@ -1,22 +1,22 @@
 const path = require("path");
 const fsOps = require("./modules/file");
 
-function main() {
-    const testFile = path.join(__dirname, "test.txt");
-    const copyFilePath = path.join(__dirname, "test_copy.txt");
-    const testFolder = path.join(__dirname, "testFolder");
+function основнаяФункция() {
+    const тестовыйФайл = path.join(__dirname, "test.txt");
+    const путьКопииФайла = path.join(__dirname, "test_copy.txt");
+    const тестоваяПапка = path.join(__dirname, "testFolder");
 
-    fsOps.saveToFile(testFile, "Hello WORLD!.18773");
-    fsOps.loadFromFile(testFile);
-    fsOps.purgeFile(testFile);
-    fsOps.loadFromFile(testFile);
-    fsOps.duplicateFile(testFile, copyFilePath);
-    fsOps.makeFolder(testFolder);
-    fsOps.showFiles(__dirname);
-    fsOps.removeFile(testFile);
-    fsOps.removeFile(copyFilePath);
-    fsOps.eraseFolder(testFolder);
-    fsOps.clearDirectory(__dirname);
+    fsOps.сохранитьВФайл(тестовыйФайл, "Hello WORLD!.18773");
+    fsOps.загрузитьИзФайла(тестовыйФайл);
+    fsOps.очиститьФайл(тестовыйФайл);
+    fsOps.загрузитьИзФайла(тестовыйФайл);
+    fsOps.копироватьФайл(тестовыйФайл, путьКопииФайла);
+    fsOps.создатьПапку(тестоваяПапка);
+    fsOps.показатьФайлы(__dirname);
+    fsOps.удалитьФайл(тестовыйФайл);
+    fsOps.удалитьФайл(путьКопииФайла);
+    fsOps.стеретьПапку(тестоваяПапка);
+    fsOps.очиститьДиректорию(__dirname);
 }
 
-main();
+основнаяФункция();

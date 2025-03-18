@@ -1,107 +1,107 @@
 const fs = require("fs");
 const path = require("path");
 
-function saveToFile(filePath, content) {
-    fs.writeFileSync(filePath, content, "utf8");
-    console.log(`Создан файл: ${filePath}`);
+function сохранитьВФайл(путьКФайлу, содержимое) {
+    fs.writeFileSync(путьКФайлу, содержимое, "utf8");
+    console.log(`Создан файл: ${путьКФайлу}`);
 }
 
-function loadFromFile(filePath) {
-    const data = fs.readFileSync(filePath, "utf8");
-    console.log(`Файл содержит:\n${data}`);
-    return data;
+function загрузитьИзФайла(путьКФайлу) {
+    const данные = fs.readFileSync(путьКФайлу, "utf8");
+    console.log(`Файл содержит:\n${данные}`);
+    return данные;
 }
 
-function modifyFile(filePath, newContent) {
-    fs.writeFileSync(filePath, newContent, "utf8");
-    console.log(`Обновлен файл: ${filePath}`);
+function изменитьФайл(путьКФайлу, новоеСодержимое) {
+    fs.writeFileSync(путьКФайлу, новоеСодержимое, "utf8");
+    console.log(`Обновлен файл: ${путьКФайлу}`);
 }
 
-function removeFile(filePath) {
-    if (fs.existsSync(filePath)) {
-        fs.unlinkSync(filePath);
-        console.log(`Удален файл: ${filePath}`);
+function удалитьФайл(путьКФайлу) {
+    if (fs.existsSync(путьКФайлу)) {
+        fs.unlinkSync(путьКФайлу);
+        console.log(`Удален файл: ${путьКФайлу}`);
     } else {
-        console.log(`Файл отсутствует: ${filePath}`);
+        console.log(`Файл отсутствует: ${путьКФайлу}`);
     }
 }
 
-function purgeFile(filePath) {
-    if (!fs.existsSync(filePath)) {
-        console.log(`Файл отсутствует: ${filePath}`);
+function очиститьФайл(путьКФайлу) {
+    if (!fs.existsSync(путьКФайлу)) {
+        console.log(`Файл отсутствует: ${путьКФайлу}`);
         return;
     }
-    let data = fs.readFileSync(filePath, "utf8");
-    data = data.replace(/\d+/g, "").toLowerCase();
-    fs.writeFileSync(filePath, data, "utf8");
-    console.log(`Очищен файл: ${filePath}`);
+    let данные = fs.readFileSync(путьКФайлу, "utf8");
+    данные = данные.replace(/\d+/g, "").toLowerCase();
+    fs.writeFileSync(путьКФайлу, данные, "utf8");
+    console.log(`Очищен файл: ${путьКФайлу}`);
 }
 
-function duplicateFile(source, destination) {
-    if (fs.existsSync(source)) {
-        fs.copyFileSync(source, destination);
-        console.log(`Скопирован ${source} в ${destination}`);
+function копироватьФайл(источник, назначение) {
+    if (fs.existsSync(источник)) {
+        fs.copyFileSync(источник, назначение);
+        console.log(`Скопирован ${источник} в ${назначение}`);
     } else {
-        console.log(`Исходный файл отсутствует: ${source}`);
+        console.log(`Исходный файл отсутствует: ${источник}`);
     }
 }
 
-function makeFolder(folderPath) {
-    if (!fs.existsSync(folderPath)) {
-        fs.mkdirSync(folderPath, { recursive: true });
-        console.log(`Создана папка: ${folderPath}`);
+function создатьПапку(путьКПапке) {
+    if (!fs.existsSync(путьКПапке)) {
+        fs.mkdirSync(путьКПапке, { recursive: true });
+        console.log(`Создана папка: ${путьКПапке}`);
     } else {
-        console.log(`Папка уже есть: ${folderPath}`);
+        console.log(`Папка уже есть: ${путьКПапке}`);
     }
 }
 
-function eraseFolder(folderPath) {
-    if (fs.existsSync(folderPath)) {
-        fs.rmSync(folderPath, { recursive: true, force: true });
-        console.log(`Удалена папка: ${folderPath}`);
+function стеретьПапку(путьКПапке) {
+    if (fs.existsSync(путьКПапке)) {
+        fs.rmSync(путьКПапке, { recursive: true, force: true });
+        console.log(`Удалена папка: ${путьКПапке}`);
     } else {
-        console.log(`Папка отсутствует: ${folderPath}`);
+        console.log(`Папка отсутствует: ${путьКПапке}`);
     }
 }
 
-function showFiles(dirPath) {
-    if (!fs.existsSync(dirPath)) {
-        console.log(`Папка отсутствует: ${dirPath}`);
+function показатьФайлы(путьКПапке) {
+    if (!fs.existsSync(путьКПапке)) {
+        console.log(`Папка отсутствует: ${путьКПапке}`);
         return;
     }
-    const files = fs.readdirSync(dirPath, { withFileTypes: true });
-    files.forEach(file => {
-        if (file.name.startsWith(".") || file.name === "node_modules") return;
-        const fullPath = path.join(dirPath, file.name);
-        console.log(fullPath);
-        if (file.isDirectory()) {
-            showFiles(fullPath);
+    const файлы = fs.readdirSync(путьКПапке, { withFileTypes: true });
+    файлы.forEach(файл => {
+        if (файл.name.startsWith(".") || файл.name === "node_modules") return;
+        const полныйПуть = path.join(путьКПапке, файл.name);
+        console.log(полныйПуть);
+        if (файл.isDirectory()) {
+            показатьФайлы(полныйПуть);
         }
     });
 }
 
-function clearDirectory(dirPath) {
-    fs.readdirSync(dirPath).forEach(file => {
-        let fullPath = path.join(dirPath, file);
-        if (!['.git', 'node_modules', 'index.js', 'files.js', '.gitignore', 'modules', 'libs'].includes(file)) {
-            if (fs.statSync(fullPath).isDirectory()) {
-                eraseFolder(fullPath);
+function очиститьДиректорию(путьКПапке) {
+    fs.readdirSync(путьКПапке).forEach(файл => {
+        let полныйПуть = path.join(путьКПапке, файл);
+        if (!['.git', 'node_modules', 'index.js', 'files.js', '.gitignore', 'modules', 'libs'].includes(файл)) {
+            if (fs.statSync(полныйПуть).isDirectory()) {
+                стеретьПапку(полныйПуть);
             } else {
-                fs.unlinkSync(fullPath);
+                fs.unlinkSync(полныйПуть);
             }
         }
     });
 }
 
 module.exports = {
-    saveToFile,
-    loadFromFile,
-    modifyFile,
-    removeFile,
-    purgeFile,
-    duplicateFile,
-    makeFolder,
-    eraseFolder,
-    showFiles,
-    clearDirectory
+    сохранитьВФайл,
+    загрузитьИзФайла,
+    изменитьФайл,
+    удалитьФайл,
+    очиститьФайл,
+    копироватьФайл,
+    создатьПапку,
+    стеретьПапку,
+    показатьФайлы,
+    очиститьДиректорию
 };
